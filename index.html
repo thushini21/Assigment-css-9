@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Assignment 09</title>
+    <style>
+        body{
+            background: black;
+        }
+        section{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 550px;
+            justify-content: center;
+            height: 100%;
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+        }
+        div{
+            display: flex;
+            gap: 20px;
+            width: 100%;
+        }
+        .box{
+            width: 100px;
+            aspect-ratio: 1/0.5;
+            display: inline-block;
+            border-radius: 10px;
+            background: white;
+        }
+
+        #div1{
+            justify-content: center;
+            margin: 2px 0;
+            border: 2px solid greenyellow;
+            padding: 10px 0;
+        }
+
+        section>div>button{
+            margin: 45px 45px;
+            width: 100px;
+            height: 90px;
+            border-radius: 50%;
+            color: lightcoral;
+            font-size: 28px;
+        }
+
+    </style>
+</head>
+<body>
+<script src="lib/jquery-3.7.1.min.js"></script>
+<section>
+    <div id="div1">
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+    </div>
+    <div id="#div2">
+        <button style="background: green" id="start">start</button>
+        <button style="background: red" id="stop">stop</button>
+    </div>
+</section>
+
+<script>
+
+    $(document).ready(function (){
+
+        const light_count = 6;
+        let current_light = -1;
+        let direction = "RIGHT"; //"RIGHT", "LEFT"
+        let interval = null ;
+
+        updatelight = () => {
+            if (direction === "RIGHT") {
+
+                current_light++;
+                $('.box').css("background", "Yellow")
+                $('.box').eq(current_light).css("background", "gold");
+                $('.box').eq(current_light-1).css("background", "pink");
+
+                if(current_light == light_count - 1){
+                    direction = "LEFT";
+                }
+            } else {
+
+
+                current_light--;
+                $('.box').css("background", "white")
+                $('.box').eq(current_light).css("background", "gold");
+                $('.box').eq(current_light+1).css("background", "pink");
+                if(current_light == 0){
+                    direction = "RIGHT";
+                }
+            }
+        }
+
+        $("#start").on({click:function (){
+                interval =  setInterval(updatelight, 100);
+            }});
+
+        $("#stop").on({click:function (){
+                clearInterval(interval);
+            }});
+    })
+</script>
+</body>
+</html>
